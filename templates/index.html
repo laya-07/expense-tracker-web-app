@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<h2>Expense Tracker Web App</h2>
+<h4>Track your spending. Stay in control.</h4>
+
+<div class="form-card">
+
+    <form action="/add" method="post">
+
+        <input type="text" name="amount" placeholder="Enter Amount" required>
+
+        <select name="category" id="category" required onchange="showCustomCategory()">
+        <option value="">Select Category</option>
+        <option value="Food">Food</option>
+        <option value="Medical">Medical</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Movies">Movies</option>
+        <option value="Travel">Travel</option>
+        <option value="Education">Education</option>
+        <option value="Other">Other</option>
+        </select>
+        <input
+        type="text"
+        id="customCategory"
+        name="custom_category"
+        placeholder="Enter custom category"
+        style="display: none;"
+        >
+        <button type="submit">Add Expense</button>  
+
+    </form>
+
+</div>
+<hr>
+<div class="total-card">
+    <h3>Total Expense</h3>
+    <p>₹{{ total }}</p>
+</div>
+<h3>Expenses List</h3>
+
+<table>
+
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Action</th>
+    </tr>
+
+    {% for e in expenses %}
+    <tr>
+        <td>{{ e.date }}</td>
+        <td>₹{{ e.amount }}</td>
+        <td>{{ e.category }}</td>
+        <td>
+            <a href="/delete/{{ e.id }}" class="delete-btn">
+                Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+</body>
+<script>
+function showCustomCategory() {
+
+    const category = document.getElementById("category");
+    const customCategory = document.getElementById("customCategory");
+
+    if (category.value === "Other") {
+        customCategory.style.display = "block";
+        customCategory.required = true;
+    } else {
+        customCategory.style.display = "none";
+        customCategory.required = false;
+        customCategory.value = "";
+    }
+}
+</script>
+</html>

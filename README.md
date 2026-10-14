@@ -47,4 +47,8 @@ expense-tracker-web/
 └── static/
     └── style.css
 ```
+## Application webpage 
+
+![Expense Tracker Web App](screenshots/expense%20tracker%20webpage.png)
+
 
